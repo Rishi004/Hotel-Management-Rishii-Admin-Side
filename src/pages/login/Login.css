@@ -1,0 +1,14 @@
+.img {
+    width: 100%;
+    height: 100vh;
+}
+
+.paper {
+    padding: 16px !important;
+    margin: 8px;
+    margin-top: 17%;
+}
+
+.grid2 {
+    background-color: rgb(229, 226, 226);
+}
