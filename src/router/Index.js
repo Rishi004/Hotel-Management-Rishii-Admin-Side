@@ -1,16 +1,17 @@
 import React from 'react';
-import { DailyMain, Login, Trash } from '../pages';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { DailyMain, Login } from '../pages';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function Index() {
     return (
-        <div>
-            <BrowserRouter>
-                {/* <Login /> */}
-                <DailyMain />
-                <Route path='/trash' component={Trash} />
-            </BrowserRouter>
-        </div>
+        <>
+            <Router>
+                <Switch>
+                    <Route exact path='/' component={Login} />
+                    <Route exact path='/daily' component={DailyMain} />
+                </Switch>
+            </Router>
+        </>
     )
 }
 

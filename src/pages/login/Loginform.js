@@ -52,7 +52,7 @@ function Loginform() {
                     }}
                 />
                 <br /><br />
-                <Link to="/trash">
+                <Link to="/daily">
                     <Button
                         color="primary"
                         variant="contained"
