@@ -54,6 +54,7 @@ function Loginform() {
                 <br /><br />
                 <Link to="/daily">
                     <Button
+                        className='btn'
                         color="primary"
                         variant="contained"
                         size="large">

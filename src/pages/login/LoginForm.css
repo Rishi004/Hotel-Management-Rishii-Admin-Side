@@ -1,15 +1,15 @@
 h1 {
-    font-family: 'Brush Script MT', cursive;
+    font-family: "Brush Script MT", cursive;
 }
 
 .input {
     justify-content: center;
     margin: 12px !important;
-    width: 60ch;
+    width: 32ch !important;
     color: honeydew !important;
 }
 
-Button {
+.btn {
     width: 62ch;
-    background-color:green !important;
+    background-color: green !important;
 }

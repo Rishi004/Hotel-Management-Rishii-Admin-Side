@@ -1,10 +1,12 @@
 import React from 'react';
-import { SidebarData, Navbar } from '../../../components/items';
+import { Navbar } from '../../../components/items';
+import { DailyTable } from '../../../pages';
 
 function DailyMain() {
     return (
         <>
             <Navbar />
+            <DailyTable />
         </>
     )
 }
