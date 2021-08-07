@@ -4,10 +4,10 @@ import { DailyTable } from '../../../pages';
 
 function DailyMain() {
     return (
-        <>
+        <div>
             <Navbar />
             <DailyTable />
-        </>
+        </div>
     )
 }
 

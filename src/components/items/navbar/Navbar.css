@@ -1,9 +1,13 @@
-.navbar {
+.nav-bar {
     background-color: #060b26;
     height: 80px;
     display: flex;
     justify-content: start;
     align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
 .menu-bars {

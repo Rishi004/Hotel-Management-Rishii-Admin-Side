@@ -8,6 +8,8 @@ import Profile from './profile/Profile';
 import AddForm from './finance/daily/AddForm';
 import EditForm from './finance/daily/EditForm';
 import DailyTable from './finance/daily/DailyTable';
+import { DailySample } from './finance/daily/DailySample';
+import DailyTotal from './finance/daily/DailyTotal';
 
 export {
     Login, Loginform,
@@ -17,5 +19,7 @@ export {
     YearlyMain,
     Profile,
     AddForm, EditForm,
-    DailyTable
+    DailyTable,
+    DailySample,
+    DailyTotal
 }

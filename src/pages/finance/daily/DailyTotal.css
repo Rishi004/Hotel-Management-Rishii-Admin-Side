@@ -1,0 +1,13 @@
+.daily-total-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.daily-total-paper {
+    height: 11ch !important;
+    padding: 16px !important;
+    margin: 8px 10px 8px 10px !important;
+    width: 300px;
+    background-color: rgb(142, 142, 223);
+    border-radius: 5px;
+}

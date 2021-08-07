@@ -23,10 +23,8 @@ function EditForm() {
 
     return (
         <>
-            <Paper className='add-form-paper'>
-                <center>
-                    <h2>Edit Selected Record</h2>
-                </center>
+            <center>
+                <h2>Edit Selected Record</h2>
                 <form>
                     <Grid container>
                         <FormControl className='select'>
@@ -79,10 +77,10 @@ function EditForm() {
                         // }}
                         />
                         <ContainedButton
-                            className='add-record-btn'
+                            className='edit-record-btn'
                             variant="contained"
                             size="large"
-                            color="primary"
+                            color="default"
                             // onClick={() => {
                             //     deleteRecord(val.id)
                             // }}
@@ -90,7 +88,7 @@ function EditForm() {
                         />
                     </Grid>
                 </form>
-            </Paper>
+            </center>
         </>
     )
 }

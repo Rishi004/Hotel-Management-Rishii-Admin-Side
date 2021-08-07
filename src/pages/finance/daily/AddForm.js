@@ -23,11 +23,10 @@ function AddForm() {
 
     return (
         <>
-            <Paper className='add-form-paper'>
-                <center>
-                    <h2>Add New Record</h2>
-                </center>
-                <form>
+            <center>
+                <h2>Add New Record</h2>
+
+                <form className="add-from-div">
                     <Grid container>
                         <FormControl className='select'>
                             <InputLabel id="demo-simple-select-label">Department</InputLabel>
@@ -91,7 +90,7 @@ function AddForm() {
                         />
                     </Grid>
                 </form>
-            </Paper>
+            </center>
         </>
     )
 }

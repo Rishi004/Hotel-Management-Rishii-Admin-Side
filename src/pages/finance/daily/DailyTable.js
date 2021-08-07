@@ -10,23 +10,25 @@ import {
     TableRow,
     TextField,
     Dialog,
-    DialogTitle,
     DialogContent,
     DialogActions,
+    TablePagination,
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import { AddForm, EditForm } from '../../../pages';
+import { AddForm, DailyTotal, EditForm } from '../../../pages';
 import { ContainedButton } from '../../../components/atomic';
 import './DailyTable.css';
 import * as IoIcons from "react-icons/io";
 import * as BiIcons from "react-icons/bi";
+import { RecordVoiceOverSharp } from '@material-ui/icons';
+import { DailySample } from '../../../pages';
 
 
 const useStyles = makeStyles(theme => ({
     table: {
-        minWidth: 650,
+        minWidth: 250,
         marginTop: theme.spacing(3),
-        '$ thead th': {
+        '& thead th': {
             fontWeight: '600',
         },
         '& tbody td': {
@@ -36,10 +38,6 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: '#fffbf2',
             cursor: 'pointer'
         },
-    },
-    pageContent: {
-        margin: theme.spacing(5),
-        padding: theme.spacing(3)
     }
 }))
 
@@ -65,105 +63,134 @@ function DailyTable() {
         setOpenEdit(false);
     };
 
+
+    const pages = [5, 15, 31];
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(pages[page]);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = event => {
+        setRowsPerPage(parseInt(event.target.value));
+        setPage(0);
+    };
+
+    const recordsAfterPagingAndSorting = () => {
+        return DailySample.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+    };
+
+
     return (
-        <>
-            {/* <AddForm /> */}
-            <Paper className={classes.pageContent}>
-                <Grid container>
-                    <Grid item xs={6} className='search-grid'>
-                        <TextField
-                            style={{ textIndent: 30 }}
-                            autoComplete="off"
-                            className="input"
-                            id="outlined-basic"
-                            variant="outlined"
-                            label="Search Records"
-                        // onChange={(e) => {
-                        //     setPassword(e.target.value);
-                        // }}
-                        />
-                    </Grid>
-                    <Grid item xs={6} className='add-new-grid'>
+        <div className="row daily-main-div">
+            <div className="col-9 daily-div">
+                <div className="pageContent">
+                    <ContainedButton
+                        className="add-new"
+                        variant="contained"
+                        size="medium"
+                        color="default"
+                        onClick={handleClickOpenAdd}
+                        startIcon={<IoIcons.IoMdAdd />}
+                        text="Add New"
+                    />
+                    <TableContainer>
+                        <Table className={classes.table}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell><b>Department Name</b></TableCell>
+                                    <TableCell align="left"><b>Date</b></TableCell>
+                                    <TableCell align="center"><b>Expenses</b></TableCell>
+                                    <TableCell align="center"><b>Income</b></TableCell>
+                                    <TableCell align="center"><b>Profit</b></TableCell>
+                                    <TableCell align="center"><b>Loss</b></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    recordsAfterPagingAndSorting().map(val =>
+                                    (
+                                        <TableRow>
+                                            <TableCell>{val.department}</TableCell>
+                                            <TableCell>{val.date}</TableCell>
+                                            <TableCell align="center">{val.expenses}</TableCell>
+                                            <TableCell align="center">{val.income}</TableCell>
+                                            <TableCell align="center">{val.profit}</TableCell>
+                                            <TableCell align="center">{val.loss}</TableCell>
+
+                                            <TableCell>
+                                                <ContainedButton
+                                                    variant="contained"
+                                                    size="medium"
+                                                    color="primary"
+                                                    onClick={handleClickOpenEdit}
+                                                    text="Edit"
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <ContainedButton
+                                                    variant="contained"
+                                                    size="medium"
+                                                    color="secondary"
+                                                    // onClick={() => {
+                                                    //     deleteRecord(val.id)
+                                                    // }}
+                                                    text="Delete"
+                                                />
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                    )
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+
+                    <TablePagination
+                        component="div"
+                        page={page}
+                        rowsPerPageOptions={pages}
+                        count={DailySample.length}
+                        rowsPerPage={rowsPerPage}
+                        onChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                </div>
+
+                <Dialog open={openAdd}  >
+                    <DialogContent>
+                        <AddForm />
+                    </DialogContent>
+                    <DialogActions>
                         <ContainedButton
-                            variant="contained"
-                            size="medium"
-                            color="default"
-                            onClick={handleClickOpenAdd}
-                            startIcon={<IoIcons.IoMdAdd />}
-                            text="Add New"
+                            className="add-record-btn"
+                            onClick={handleCloseAdd}
+                            color="secondary"
+                            text="Cancel"
                         />
-                    </Grid>
-                </Grid>
-                <TableContainer>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell><b>Department Name</b></TableCell>
-                                <TableCell align="left"><b>Date</b></TableCell>
-                                <TableCell align="center"><b>Expenses</b></TableCell>
-                                <TableCell align="center"><b>Income</b></TableCell>
-                                <TableCell align="center"><b>Profit</b></TableCell>
-                                <TableCell align="center"><b>Loss</b></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell>Room Services</TableCell>
-                                <TableCell>7/29/2021</TableCell>
-                                <TableCell align="center">50000</TableCell>
-                                <TableCell align="center">150000</TableCell>
-                                <TableCell align="center">100000</TableCell>
-                                <TableCell align="center">Nah</TableCell>
+                    </DialogActions>
+                </Dialog>
 
-                                <TableCell>
-                                    <ContainedButton
-                                        variant="contained"
-                                        size="large"
-                                        color="primary"
-                                        onClick={handleClickOpenEdit}
-                                        text="Edit"
-                                    />
-                                </TableCell>
-                                <TableCell>
-                                    <ContainedButton
-                                        variant="contained"
-                                        size="large"
-                                        color="secondary"
-                                        // onClick={() => {
-                                        //     deleteRecord(val.id)
-                                        // }}
-                                        text="Delete"
-                                    />
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Paper>
+                <Dialog open={openEdit}  >
+                    <DialogContent>
+                        <EditForm />
+                    </DialogContent>
+                    <DialogActions>
+                        <ContainedButton
+                            className="add-record-btn"
+                            onClick={handleCloseEdit}
+                            color="primary"
+                            text="Cancel"
+                        />
+                    </DialogActions>
+                </Dialog>
+            </div>
+            <div className='col-3 mt-5 total-main-div'>
+                <DailyTotal />
+            </div>
+        </div>
 
-            <Dialog open={openAdd}  >
-                <DialogContent>
-                    <AddForm />
-                </DialogContent>
-                {/* <DialogActions>
-                    <ContainedButton onClick={handleClose} color="primary">
-                        Cancel
-                    </ContainedButton>
-                </DialogActions> */}
-            </Dialog>
-
-            <Dialog open={openEdit}  >
-                <DialogContent>
-                    <EditForm />
-                </DialogContent>
-                {/* <DialogActions>
-                    <ContainedButton onClick={handleClose} color="primary">
-                        Cancel
-                    </ContainedButton>
-                </DialogActions> */}
-            </Dialog>
-
-        </>
     )
 }
 

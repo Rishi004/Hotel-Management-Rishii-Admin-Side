@@ -1,10 +1,32 @@
-.search-records {
-    opacity: 0.6;
-    padding: 0px 8px;
-    font-size: 0.8rem;
-    margin: 8px !important;
+.dail-main-div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
 
-.search-records:hover {
-    background-color: #f2f2f2;
+.daily-div {
+    width: 70%;
+    height: 40ch;
+}
+
+.pageContent {
+    margin: 54px 20px 54px 40px;
+    padding: 24px;
+    background-color: whitesmoke;
+    border-radius: 7px;
+}
+
+.add-record-btn {
+    margin: 8px 50px 8px 300px !important;
+    width: 20ch !important;
+}
+
+.edit-record-btn {
+    margin: 8px 50px 8px 300px !important;
+    width: 20ch !important;
+    color: green !important;
+}
+
+.add-new {
+    margin-left: 40ch !important;
 }
