@@ -19,7 +19,7 @@ import { AddForm, DailyTotal, EditForm } from '../../../pages';
 import { ContainedButton } from '../../../components/atomic';
 import './DailyTable.css';
 import * as IoIcons from "react-icons/io";
-import * as BiIcons from "react-icons/bi";
+import * as AiIcons from "react-icons/ai";
 import { RecordVoiceOverSharp } from '@material-ui/icons';
 import { DailySample } from '../../../pages';
 
@@ -124,6 +124,7 @@ function DailyTable() {
                                                     variant="contained"
                                                     size="medium"
                                                     color="primary"
+                                                    startIcon={<AiIcons.AiFillEdit />}
                                                     onClick={handleClickOpenEdit}
                                                     text="Edit"
                                                 />
@@ -133,6 +134,7 @@ function DailyTable() {
                                                     variant="contained"
                                                     size="medium"
                                                     color="secondary"
+                                                    startIcon={<AiIcons.AiFillDelete />}
                                                     // onClick={() => {
                                                     //     deleteRecord(val.id)
                                                     // }}

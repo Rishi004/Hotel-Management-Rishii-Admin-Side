@@ -3,11 +3,49 @@
     flex-direction: column;
 }
 
-.daily-total-paper {
+.daily-total-paper-income {
     height: 11ch !important;
-    padding: 16px !important;
+    padding: 12px !important;
     margin: 8px 10px 8px 10px !important;
     width: 300px;
-    background-color: rgb(142, 142, 223);
+    background: #800080;
+    background: -webkit-linear-gradient(to left, #ffc0cb, #800080);
+    background: linear-gradient(to left, #ffc0cb, #800080);
+
     border-radius: 5px;
+}
+
+.daily-total-paper-expense {
+    height: 11ch !important;
+    padding: 12px !important;
+    margin: 8px 10px 8px 10px !important;
+    width: 300px;
+    background: #fffbd5;
+    background: -webkit-linear-gradient(to right, #b20a2c, #fffbd5);
+    background: linear-gradient(to right, #b20a2c, #fffbd5);
+
+    border-radius: 5px;
+}
+
+.daily-total-paper-profit {
+    height: 11ch !important;
+    padding: 12px !important;
+    margin: 8px 10px 8px 10px !important;
+    width: 300px;
+    background: #00b09b;
+    background: -webkit-linear-gradient(to left, #96c93d, #00b09b);
+    background: linear-gradient(to left, #96c93d, #00b09b);
+    border-radius: 5px;
+}
+
+h3 {
+    text-align: left;
+    font-weight: 900;
+}
+
+.price {
+    /* text-align: right; */
+    margin-top: -22%;
+    margin-left: 45%;
+    font-weight: 800;
 }

@@ -4,13 +4,17 @@
     width: 100%;
 }
 
+.daily-main-div {
+    max-width: 100% !important;
+}
+
 .daily-div {
     width: 70%;
     height: 40ch;
 }
 
 .pageContent {
-    margin: 54px 20px 54px 40px;
+    margin: 54px 40px 54px 40px;
     padding: 24px;
     background-color: whitesmoke;
     border-radius: 7px;
@@ -28,5 +32,6 @@
 }
 
 .add-new {
-    margin-left: 40ch !important;
+    margin-left: 100ch !important;
+    width: 20ch !important;
 }
