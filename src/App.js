@@ -1,7 +1,6 @@
-import React from 'react';
-import './App.css';
-import Index from './router/Index';
-
+import React from "react";
+import "./App.css";
+import Index from "./router/Index";
 
 function App() {
   return (
@@ -10,6 +9,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

@@ -1,16 +1,10 @@
-.dail-main-div {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
 .daily-main-div {
     max-width: 100% !important;
 }
 
 .daily-div {
     width: 70%;
-    height: 40ch;
+    height: 60ch;
 }
 
 .pageContent {
