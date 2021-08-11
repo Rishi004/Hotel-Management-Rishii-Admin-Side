@@ -2,7 +2,6 @@ import {
     FormControl,
     InputLabel,
     MenuItem,
-    Paper,
     Select,
     Grid,
     TextField

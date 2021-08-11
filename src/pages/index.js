@@ -10,6 +10,8 @@ import EditForm from './finance/daily/EditForm';
 import DailyTable from './finance/daily/DailyTable';
 import { DailySample } from './finance/daily/DailySample';
 import DailyTotal from './finance/daily/DailyTotal';
+import MonthlyTable from './finance/monthly/MonthlyTable';
+import { MonthlySample } from './finance/monthly/MonthlySample';
 
 export {
     Login, Loginform,
@@ -21,5 +23,7 @@ export {
     AddForm, EditForm,
     DailyTable,
     DailySample,
-    DailyTotal
+    DailyTotal,
+    MonthlyTable,
+    MonthlySample
 }

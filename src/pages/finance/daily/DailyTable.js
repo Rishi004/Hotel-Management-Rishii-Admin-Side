@@ -1,18 +1,15 @@
 import {
     makeStyles,
-    Paper,
-    Grid,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
-    TextField,
     Dialog,
     DialogContent,
     DialogActions,
-    TablePagination,
+    // TablePagination,
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { AddForm, DailyTotal, EditForm } from '../../../pages';
@@ -20,7 +17,7 @@ import { ContainedButton } from '../../../components/atomic';
 import './DailyTable.css';
 import * as IoIcons from "react-icons/io";
 import * as AiIcons from "react-icons/ai";
-import { RecordVoiceOverSharp } from '@material-ui/icons';
+// import { RecordVoiceOverSharp } from '@material-ui/icons';
 import { DailySample } from '../../../pages';
 
 
@@ -64,22 +61,22 @@ function DailyTable() {
     };
 
 
-    const pages = [5, 15, 31];
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(pages[page]);
+    // const pages = [5, 15, 31];
+    // const [page, setPage] = useState(0);
+    // const [rowsPerPage, setRowsPerPage] = useState(pages[page]);
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
+    // const handleChangePage = (event, newPage) => {
+    //     setPage(newPage);
+    // };
 
-    const handleChangeRowsPerPage = event => {
-        setRowsPerPage(parseInt(event.target.value));
-        setPage(0);
-    };
+    // const handleChangeRowsPerPage = event => {
+    //     setRowsPerPage(parseInt(event.target.value));
+    //     setPage(0);
+    // };
 
-    const recordsAfterPagingAndSorting = () => {
-        return DailySample.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
-    };
+    // const recordsAfterPagingAndSorting = () => {
+    //     return DailySample.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+    // };
 
 
     return (
@@ -109,7 +106,7 @@ function DailyTable() {
                             </TableHead>
                             <TableBody>
                                 {
-                                    recordsAfterPagingAndSorting().map(val =>
+                                    DailySample.map(val =>
                                     (
                                         <TableRow>
                                             <TableCell>{val.department}</TableCell>
@@ -149,7 +146,7 @@ function DailyTable() {
                         </Table>
                     </TableContainer>
 
-                    <TablePagination
+                    {/* <TablePagination
                         component="div"
                         page={page}
                         rowsPerPageOptions={pages}
@@ -157,7 +154,7 @@ function DailyTable() {
                         rowsPerPage={rowsPerPage}
                         onChange={handleChangePage}
                         onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
+                    /> */}
                 </div>
 
                 <Dialog open={openAdd}  >

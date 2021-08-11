@@ -1,4 +1,3 @@
-import { Grid, Paper } from '@material-ui/core';
 import React from 'react';
 import './DailyTotal.css';
 import * as BiIcons from "react-icons/bi";
