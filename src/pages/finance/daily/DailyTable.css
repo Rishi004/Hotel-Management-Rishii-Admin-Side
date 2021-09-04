@@ -25,6 +25,11 @@
     color: green !important;
 }
 
+.dlt-record-btn {
+    margin: 8px 50px 8px 300px !important;
+    width: 20ch !important;
+}
+
 .add-new {
     margin-left: 100ch !important;
     width: 20ch !important;

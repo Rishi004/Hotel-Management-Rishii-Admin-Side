@@ -83,7 +83,7 @@ function EditForm() {
                             // onClick={() => {
                             //     deleteRecord(val.id)
                             // }}
-                            text="Edit Record"
+                            text="Update Record"
                         />
                     </Grid>
                 </form>

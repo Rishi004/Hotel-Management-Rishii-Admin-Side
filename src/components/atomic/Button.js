@@ -1,5 +1,5 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import Button from "@material-ui/core/Button";
 
 function ContainedButton({ variant, size, color, onClick, text, ...other }) {
     return (
@@ -14,7 +14,7 @@ function ContainedButton({ variant, size, color, onClick, text, ...other }) {
                 {text}
             </Button>
         </div>
-    )
+    );
 }
 
-export default ContainedButton
+export default ContainedButton;

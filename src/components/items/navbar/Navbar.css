@@ -74,3 +74,21 @@
 .span {
     margin-left: 16px;
 }
+
+.admin-img {
+    width: 55%;
+    height: 16vh;
+    border-radius: 50%;
+    margin-left: 2ch;
+}
+
+.prof-name {
+    color: white;
+    margin-left: 45px;
+    font-weight: bold;
+}
+
+.prof-name-2 {
+    color: white;
+    margin-left: 60px;
+}

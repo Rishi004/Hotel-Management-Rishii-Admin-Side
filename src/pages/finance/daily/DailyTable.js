@@ -10,40 +10,39 @@ import {
     DialogContent,
     DialogActions,
     // TablePagination,
-} from '@material-ui/core';
-import React, { useState } from 'react';
-import { AddForm, DailyTotal, EditForm } from '../../../pages';
-import { ContainedButton } from '../../../components/atomic';
-import './DailyTable.css';
+} from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { AddForm, DailyTotal, EditForm, DeleteConfirm } from "../../../pages";
+import { ContainedButton } from "../../../components/atomic";
+import "./DailyTable.css";
 import * as IoIcons from "react-icons/io";
 import * as AiIcons from "react-icons/ai";
 // import { RecordVoiceOverSharp } from '@material-ui/icons';
-import { DailySample } from '../../../pages';
+import Axios from "axios";
 
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 250,
         marginTop: theme.spacing(3),
-        '& thead th': {
-            fontWeight: '600',
+        "& thead th": {
+            fontWeight: "600",
         },
-        '& tbody td': {
-            fontWeight: '300'
+        "& tbody td": {
+            fontWeight: "300",
         },
-        '& tbody tr:hover': {
-            backgroundColor: '#fffbf2',
-            cursor: 'pointer'
+        "& tbody tr:hover": {
+            backgroundColor: "#fffbf2",
+            cursor: "pointer",
         },
-    }
-}))
+    },
+}));
 
 function DailyTable() {
-
     const classes = useStyles();
 
     const [openAdd, setOpenAdd] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
+    // const [openDelete, setOpenDelete] = useState(false);
 
     const handleClickOpenAdd = () => {
         setOpenAdd(true);
@@ -52,7 +51,6 @@ function DailyTable() {
         setOpenAdd(false);
     };
 
-
     const handleClickOpenEdit = () => {
         setOpenEdit(true);
     };
@@ -60,6 +58,12 @@ function DailyTable() {
         setOpenEdit(false);
     };
 
+    // const handleClickOpenDelete = () => {
+    //     setOpenDelete(true);
+    // };
+    // const handleCloseDelete = () => {
+    //     setOpenDelete(false);
+    // };
 
     // const pages = [5, 15, 31];
     // const [page, setPage] = useState(0);
@@ -78,6 +82,30 @@ function DailyTable() {
     //     return DailySample.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
     // };
 
+    const [recordList, setRecordList] = useState([]);
+
+    const showDailyRecords = () => {
+        Axios.get("http://localhost:3001/api/alldaily").then((response) => {
+            setRecordList(response && response.data);
+            console.log("showRecord", response.data);
+        });
+    };
+
+    const deleteRecord = (id) => {
+        Axios.delete(`http://localhost:3001/api/delete/${id}`).then(
+            (response) => {
+                setRecordList(
+                    recordList.filter((val) => {
+                        return val.id !== id;
+                    })
+                );
+            }
+        );
+    };
+
+    useEffect(() => {
+        showDailyRecords();
+    }, []);
 
     return (
         <div className="row daily-main-div">
@@ -92,56 +120,84 @@ function DailyTable() {
                         startIcon={<IoIcons.IoMdAdd />}
                         text="Add New"
                     />
+                    {/* <ContainedButton
+                        className="add-new"
+                        variant="contained"
+                        size="medium"
+                        color="default"
+                        onClick={showDailyRecords}
+                        text="Show"
+                    /> */}
                     <TableContainer>
                         <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell><b>Department Name</b></TableCell>
-                                    <TableCell align="left"><b>Date</b></TableCell>
-                                    <TableCell align="center"><b>Expenses</b></TableCell>
-                                    <TableCell align="center"><b>Income</b></TableCell>
-                                    <TableCell align="center"><b>Profit</b></TableCell>
-                                    <TableCell align="center"><b>Loss</b></TableCell>
+                                    <TableCell>
+                                        <b>Department Name</b>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <b>Date</b>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <b>Expenses</b>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <b>Income</b>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <b>Profit</b>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <b>Loss</b>
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {
-                                    DailySample.map(val =>
-                                    (
-                                        <TableRow>
-                                            <TableCell>{val.department}</TableCell>
-                                            <TableCell>{val.date}</TableCell>
-                                            <TableCell align="center">{val.expenses}</TableCell>
-                                            <TableCell align="center">{val.income}</TableCell>
-                                            <TableCell align="center">{val.profit}</TableCell>
-                                            <TableCell align="center">{val.loss}</TableCell>
+                                {recordList.map((val) => (
+                                    <TableRow>
+                                        <TableCell>{val.department}</TableCell>
+                                        <TableCell>{val.date}</TableCell>
+                                        <TableCell align="center">
+                                            {val.expenses}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {val.income}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {val.profit}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {val.loss}
+                                        </TableCell>
 
-                                            <TableCell>
-                                                <ContainedButton
-                                                    variant="contained"
-                                                    size="medium"
-                                                    color="primary"
-                                                    startIcon={<AiIcons.AiFillEdit />}
-                                                    onClick={handleClickOpenEdit}
-                                                    text="Edit"
-                                                />
-                                            </TableCell>
-                                            <TableCell>
-                                                <ContainedButton
-                                                    variant="contained"
-                                                    size="medium"
-                                                    color="secondary"
-                                                    startIcon={<AiIcons.AiFillDelete />}
-                                                    // onClick={() => {
-                                                    //     deleteRecord(val.id)
-                                                    // }}
-                                                    text="Delete"
-                                                />
-                                            </TableCell>
-                                        </TableRow>
-                                    )
-                                    )
-                                }
+                                        <TableCell>
+                                            <ContainedButton
+                                                variant="contained"
+                                                size="medium"
+                                                color="primary"
+                                                startIcon={
+                                                    <AiIcons.AiFillEdit />
+                                                }
+                                                onClick={handleClickOpenEdit}
+                                                text="Edit"
+                                            />
+                                        </TableCell>
+                                        <TableCell>
+                                            <ContainedButton
+                                                variant="contained"
+                                                size="medium"
+                                                color="secondary"
+                                                startIcon={
+                                                    <AiIcons.AiFillDelete />
+                                                }
+                                                onClick={() => {
+                                                    deleteRecord(val.id);
+                                                }}
+                                                text="Delete"
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
@@ -157,7 +213,7 @@ function DailyTable() {
                     /> */}
                 </div>
 
-                <Dialog open={openAdd}  >
+                <Dialog open={openAdd}>
                     <DialogContent>
                         <AddForm />
                     </DialogContent>
@@ -171,7 +227,7 @@ function DailyTable() {
                     </DialogActions>
                 </Dialog>
 
-                <Dialog open={openEdit}  >
+                <Dialog open={openEdit}>
                     <DialogContent>
                         <EditForm />
                     </DialogContent>
@@ -184,13 +240,27 @@ function DailyTable() {
                         />
                     </DialogActions>
                 </Dialog>
+
+                {/* <Dialog open={openDelete} fullWidth={true} maxWidth={"sm"}>
+                    <DialogContent>
+                        <DeleteConfirm recordList={recordList} />
+                    </DialogContent>
+                    <DialogActions>
+                        <ContainedButton
+                            className="dlt-record-btn"
+                            onClick={handleCloseDelete}
+                            color="secondary"
+                            text="Cancel"
+                            size="small"
+                        />
+                    </DialogActions>
+                </Dialog> */}
             </div>
-            <div className='col-3 mt-5 total-main-div'>
+            <div className="col-3 mt-5 total-main-div">
                 <DailyTotal />
             </div>
         </div>
-
-    )
+    );
 }
 
-export default DailyTable
+export default DailyTable;

@@ -1,34 +1,64 @@
 import {
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
+    // FormControl,
+    // InputLabel,
+    // MenuItem,
+    // Select,
     Grid,
-    TextField
-} from '@material-ui/core';
-import React from 'react';
-import './AddForm.css';
-import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
+    TextField,
+} from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import "./AddForm.css";
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
 import {
     KeyboardDatePicker,
-    MuiPickersUtilsProvider
-} from '@material-ui/pickers';
-import { ContainedButton } from '../../../components/atomic';
-
-
+    MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import { ContainedButton } from "../../../components/atomic";
+import Axios from "axios";
 
 function AddForm() {
+    const [department, setDepartment] = useState("");
+    const [date, setDate] = useState(new Date());
+    const [income, setIncome] = useState(0);
+    const [expenses, setExpenses] = useState(0);
+    // const [profit, setProfit] = useState(0);
+    // const [loss, setLoss] = useState(0);
+
+    const addDailyRecord = () => {
+        Axios.post("http://localhost:3001/api/adddaily", {
+            department: department,
+            date: date,
+            expenses: expenses,
+            income: income,
+        }).then(() => {
+            console.log("Success");
+            // showDailyRecords();
+        });
+    };
 
     return (
         <>
             <center>
                 <h2>Add New Record</h2>
-
                 <form className="add-from-div">
                     <Grid container>
-                        <FormControl className='select'>
-                            <InputLabel id="demo-simple-select-label">Department</InputLabel>
+                        <TextField
+                            autoComplete="off"
+                            className="input"
+                            id="standard-basic"
+                            label="Department"
+                            name="department"
+                            // value={this.state.department}
+                            onChange={(event) => {
+                                setDepartment(event.target.value);
+                            }}
+                        />
+                        {/* <p>{this.state.departmentError}</p> */}
+                        {/* <FormControl className="select">
+                            <InputLabel id="demo-simple-select-label">
+                                Department
+                            </InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -36,25 +66,31 @@ function AddForm() {
                                 // onChange={handleChange}
                                 label="Age"
                             >
-
                                 <MenuItem value={10}>Room Services</MenuItem>
-                                <MenuItem value={20}>Food and Beverage</MenuItem>
-
+                                <MenuItem value={20}>
+                                    Food and Beverage
+                                </MenuItem>
+                                <MenuItem value={20}>
+                                    Vehicle Management
+                                </MenuItem>
+                                <MenuItem value={20}>Deliveries</MenuItem>
                             </Select>
-                        </FormControl>
+                        </FormControl> */}
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker
-                                className='date-picker'
+                                className="date-picker"
                                 disableToolbar
                                 variant="inline"
                                 format="MM/dd/yyyy"
                                 margin="normal"
                                 id="date-picker-inline"
                                 label="Date picker inline"
-                                value='12/12/2020'
-                                // onChange={handleDateChange}
+                                name="date"
+                                value={date}
+                                // selected={startDate}
+                                onChange={(date) => setDate(date)}
                                 KeyboardButtonProps={{
-                                    'aria-label': 'change date',
+                                    "aria-label": "change date",
                                 }}
                             />
                         </MuiPickersUtilsProvider>
@@ -63,35 +99,37 @@ function AddForm() {
                             className="input"
                             id="standard-basic"
                             label="Income"
-                        // onChange={(e) => {
-                        //     setPassword(e.target.value);
-                        // }}
+                            name="income"
+                            // value={this.state.income}
+                            onChange={(event) => {
+                                setIncome(event.target.value);
+                            }}
                         />
                         <TextField
                             autoComplete="off"
                             className="input"
                             id="standard-basic"
                             label="Expenses"
-                        // onChange={(e) => {
-                        //     setPassword(e.target.value);
-                        // }}
+                            name="expenses"
+                            // value={this.state.expenses}
+                            onChange={(event) => {
+                                setExpenses(event.target.value);
+                            }}
                         />
 
                         <ContainedButton
-                            className='add-record-btn'
+                            className="add-record-btn"
                             variant="contained"
                             size="large"
                             color="primary"
-                            // onClick={() => {
-                            //     deleteRecord(val.id)
-                            // }}
                             text="Add Record"
+                            onClick={addDailyRecord}
                         />
                     </Grid>
                 </form>
             </center>
         </>
-    )
+    );
 }
 
-export default AddForm
+export default AddForm;
