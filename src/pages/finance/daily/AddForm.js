@@ -1,13 +1,5 @@
-/* eslint-disable no-const-assign */
-import {
-    // FormControl,
-    // InputLabel,
-    // MenuItem,
-    // Select,
-    Grid,
-    TextField,
-} from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import { Grid, TextField } from "@material-ui/core";
+import React, { useState } from "react";
 import "./AddForm.css";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
@@ -96,34 +88,9 @@ function AddForm(props) {
                             label="Department"
                             name="department"
                             value={values.department}
-                            // onChange={(event) => {
-                            //     setDepartment(event.target.value);
-                            // }}
                             onChange={handleInputChange}
                         />
                         <span className="errorMsg">{errors.department}</span>
-                        {/* <p>{this.state.departmentError}</p> */}
-                        {/* <FormControl className="select">
-                            <InputLabel id="demo-simple-select-label">
-                                Department
-                            </InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                // value={age}
-                                // onChange={handleChange}
-                                label="Age"
-                            >
-                                <MenuItem value={10}>Room Services</MenuItem>
-                                <MenuItem value={20}>
-                                    Food and Beverage
-                                </MenuItem>
-                                <MenuItem value={20}>
-                                    Vehicle Management
-                                </MenuItem>
-                                <MenuItem value={20}>Deliveries</MenuItem>
-                            </Select>
-                        </FormControl> */}
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker
                                 className="date-picker"
@@ -135,9 +102,7 @@ function AddForm(props) {
                                 label="Date picker inline"
                                 name="date"
                                 value={date}
-                                // selected={startDate}
                                 onChange={(date) => setDate(date)}
-                                // onChange={handleInputChange}
                                 KeyboardButtonProps={{
                                     "aria-label": "change date",
                                 }}
@@ -150,9 +115,6 @@ function AddForm(props) {
                             label="Income"
                             name="income"
                             value={values.income}
-                            // onChange={(event) => {
-                            //     setIncome(event.target.value);
-                            // }}
                             onChange={handleInputChange}
                             required
                         />
@@ -164,9 +126,6 @@ function AddForm(props) {
                             label="Expenses"
                             name="expenses"
                             value={values.expenses}
-                            // onChange={(event) => {
-                            //     setExpenses(event.target.value);
-                            // }}
                             onChange={handleInputChange}
                             required
                         />
@@ -178,7 +137,6 @@ function AddForm(props) {
                             size="large"
                             color="primary"
                             text={btn}
-                            // onClick={addDailyRecord}
                         />
                         <ContainedButton
                             className="add-record-btn"

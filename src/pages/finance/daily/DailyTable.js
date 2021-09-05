@@ -12,12 +12,11 @@ import {
     // TablePagination,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { AddForm, DailyTotal, DeleteConfirm } from "../../../pages";
+import { AddForm, DailyTotal } from "../../../pages";
 import { ContainedButton } from "../../../components/atomic";
 import "./DailyTable.css";
 import * as IoIcons from "react-icons/io";
 import * as AiIcons from "react-icons/ai";
-// import { RecordVoiceOverSharp } from '@material-ui/icons';
 import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,13 +48,6 @@ function DailyTable() {
     const handleCloseAdd = () => {
         setOpenAdd(false);
     };
-
-    // const handleClickOpenDelete = () => {
-    //     setOpenDelete(true);
-    // };
-    // const handleCloseDelete = () => {
-    //     setOpenDelete(false);
-    // };
 
     // const pages = [5, 15, 31];
     // const [page, setPage] = useState(0);
@@ -223,35 +215,6 @@ function DailyTable() {
                         />
                     </DialogActions>
                 </Dialog>
-
-                {/* <Dialog open={openEdit}>
-                    <DialogContent>
-                        <EditForm />
-                    </DialogContent>
-                    <DialogActions>
-                        <ContainedButton
-                            className="add-record-btn"
-                            onClick={handleCloseEdit}
-                            color="primary"
-                            text="Cancel"
-                        />
-                    </DialogActions>
-                </Dialog> */}
-
-                {/* <Dialog open={openDelete} fullWidth={true} maxWidth={"sm"}>
-                    <DialogContent>
-                        <DeleteConfirm recordList={recordList} />
-                    </DialogContent>
-                    <DialogActions>
-                        <ContainedButton
-                            className="dlt-record-btn"
-                            onClick={handleCloseDelete}
-                            color="secondary"
-                            text="Cancel"
-                            size="small"
-                        />
-                    </DialogActions>
-                </Dialog> */}
             </div>
             <div className="col-3 mt-5 total-main-div">
                 <DailyTotal />
