@@ -12,11 +12,12 @@ import {
     // TablePagination,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { AddForm, DailyTotal } from "../../../pages";
+import { AddForm } from "../../../pages";
 import { ContainedButton } from "../../../components/atomic";
 import "./DailyTable.css";
 import * as IoIcons from "react-icons/io";
 import * as AiIcons from "react-icons/ai";
+import * as BiIcons from "react-icons/bi";
 import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +41,7 @@ function DailyTable() {
 
     const [openAdd, setOpenAdd] = useState(false);
     const [isEdit, setisEdit] = useState(false);
+
     // const [openDelete, setOpenDelete] = useState(false);
 
     const handleClickOpenAdd = () => {
@@ -67,6 +69,24 @@ function DailyTable() {
     // };
 
     const [recordList, setRecordList] = useState([]);
+
+    let totalProfit = recordList.reduce(
+        (totalProfit, totalProfit2) =>
+            (totalProfit = totalProfit + totalProfit2.profit),
+        0
+    );
+
+    let totalIncome = recordList.reduce(
+        (totalIncome, totalIncome2) =>
+            (totalIncome = totalIncome + totalIncome2.income),
+        0
+    );
+
+    let totalExpenses = recordList.reduce(
+        (totalExpenses, totalExpenses2) =>
+            (totalExpenses = totalExpenses + totalExpenses2.expenses),
+        0
+    );
 
     const showDailyRecords = () => {
         Axios.get("http://localhost:3001/api/alldaily").then((response) => {
@@ -216,8 +236,40 @@ function DailyTable() {
                     </DialogActions>
                 </Dialog>
             </div>
-            <div className="col-3 mt-5 total-main-div">
-                <DailyTotal />
+            <div className="col-3 mt-5 daily-total-div">
+                <div className="daily-total-paper-income">
+                    <h3>Total Income</h3>
+                    <br />
+                    <IoIcons.IoMdStats
+                        style={{ fontSize: 70, color: "white" }}
+                    />
+                    <h4 className="price">
+                        Rs <br />
+                        {totalIncome}
+                    </h4>
+                </div>
+                <div className="daily-total-paper-expense">
+                    <h3>Total Expenses</h3>
+                    <br />
+                    <BiIcons.BiLineChartDown
+                        style={{ fontSize: 70, color: "white" }}
+                    />
+                    <h4 className="price">
+                        Rs <br />
+                        {totalExpenses}
+                    </h4>
+                </div>
+                <div className="daily-total-paper-profit">
+                    <h3>Profit</h3>
+                    <br />
+                    <AiIcons.AiOutlineLineChart
+                        style={{ fontSize: 70, color: "white" }}
+                    />
+                    <h4 className="price">
+                        Rs <br />
+                        {totalProfit}
+                    </h4>
+                </div>
             </div>
         </div>
     );

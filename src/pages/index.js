@@ -8,7 +8,6 @@ import Profile from "./profile/Profile";
 import AddForm from "./finance/daily/AddForm";
 import DailyTable from "./finance/daily/DailyTable";
 import { DailySample } from "./finance/daily/DailySample";
-import DailyTotal from "./finance/daily/DailyTotal";
 import MonthlyTable from "./finance/monthly/MonthlyTable";
 import { MonthlySample } from "./finance/monthly/MonthlySample";
 import DeleteConfirm from "./finance/daily/DeleteConfirm";
@@ -24,7 +23,6 @@ export {
     AddForm,
     DailyTable,
     DailySample,
-    DailyTotal,
     MonthlyTable,
     MonthlySample,
     DeleteConfirm,
