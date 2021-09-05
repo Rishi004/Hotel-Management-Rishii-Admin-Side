@@ -12,7 +12,7 @@ import {
     // TablePagination,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { AddForm, DailyTotal, EditForm, DeleteConfirm } from "../../../pages";
+import { AddForm, DailyTotal, DeleteConfirm } from "../../../pages";
 import { ContainedButton } from "../../../components/atomic";
 import "./DailyTable.css";
 import * as IoIcons from "react-icons/io";
@@ -22,10 +22,9 @@ import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        minWidth: 250,
         marginTop: theme.spacing(3),
         "& thead th": {
-            fontWeight: "600",
+            fontWeight: "500",
         },
         "& tbody td": {
             fontWeight: "300",
@@ -41,7 +40,7 @@ function DailyTable() {
     const classes = useStyles();
 
     const [openAdd, setOpenAdd] = useState(false);
-    const [openEdit, setOpenEdit] = useState(false);
+    const [isEdit, setisEdit] = useState(false);
     // const [openDelete, setOpenDelete] = useState(false);
 
     const handleClickOpenAdd = () => {
@@ -49,13 +48,6 @@ function DailyTable() {
     };
     const handleCloseAdd = () => {
         setOpenAdd(false);
-    };
-
-    const handleClickOpenEdit = () => {
-        setOpenEdit(true);
-    };
-    const handleCloseEdit = () => {
-        setOpenEdit(false);
     };
 
     // const handleClickOpenDelete = () => {
@@ -107,6 +99,11 @@ function DailyTable() {
         showDailyRecords();
     }, []);
 
+    const handleClickEdit = () => {
+        setOpenAdd(true);
+        setisEdit(true);
+    };
+
     return (
         <div className="row daily-main-div">
             <div className="col-9 daily-div">
@@ -120,14 +117,7 @@ function DailyTable() {
                         startIcon={<IoIcons.IoMdAdd />}
                         text="Add New"
                     />
-                    {/* <ContainedButton
-                        className="add-new"
-                        variant="contained"
-                        size="medium"
-                        color="default"
-                        onClick={showDailyRecords}
-                        text="Show"
-                    /> */}
+
                     <TableContainer>
                         <Table className={classes.table}>
                             <TableHead>
@@ -178,7 +168,7 @@ function DailyTable() {
                                                 startIcon={
                                                     <AiIcons.AiFillEdit />
                                                 }
-                                                onClick={handleClickOpenEdit}
+                                                onClick={handleClickEdit}
                                                 text="Edit"
                                             />
                                         </TableCell>
@@ -215,7 +205,14 @@ function DailyTable() {
 
                 <Dialog open={openAdd}>
                     <DialogContent>
-                        <AddForm />
+                        <AddForm
+                            title={
+                                isEdit
+                                    ? "Edit Selected Record"
+                                    : "Add New Record"
+                            }
+                            btn={isEdit ? "Update Record" : "Add Record"}
+                        />
                     </DialogContent>
                     <DialogActions>
                         <ContainedButton
@@ -227,7 +224,7 @@ function DailyTable() {
                     </DialogActions>
                 </Dialog>
 
-                <Dialog open={openEdit}>
+                {/* <Dialog open={openEdit}>
                     <DialogContent>
                         <EditForm />
                     </DialogContent>
@@ -239,7 +236,7 @@ function DailyTable() {
                             text="Cancel"
                         />
                     </DialogActions>
-                </Dialog>
+                </Dialog> */}
 
                 {/* <Dialog open={openDelete} fullWidth={true} maxWidth={"sm"}>
                     <DialogContent>

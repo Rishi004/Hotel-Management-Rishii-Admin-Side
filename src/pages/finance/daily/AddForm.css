@@ -12,21 +12,27 @@
 } */
 
 .date-picker {
-    width: 25ch;
+    width: 45ch;
     margin: 8px 64px 8px 64px !important;
 }
 
 .select {
     margin: 8px 64px 8px 64px !important;
-    min-width: 25ch !important;
+    min-width: 45ch !important;
 }
 
 .input {
     margin: 8px 64px 8px 64px !important;
-    width: 25ch !important;
+    width: 45ch !important;
 }
 
 .add-record-btn {
     margin: 8px 50px 8px 300px !important;
-    width: 20ch !important;
+    width: 45ch !important;
+}
+
+.errorMsg {
+    font-size: 14px;
+    color: red;
+    margin-left: 9ch;
 }

@@ -7,33 +7,31 @@ import {
     TableHead,
     TableRow,
     TablePagination,
-} from '@material-ui/core';
-import React, { useState } from 'react';
-import { ContainedButton } from '../../../components/atomic';
-import '../daily/DailyTable.css';
+} from "@material-ui/core";
+import React, { useState } from "react";
+import { ContainedButton } from "../../../components/atomic";
+import "../daily/DailyTable.css";
 import * as AiIcons from "react-icons/ai";
 // import { RecordVoiceOverSharp } from '@material-ui/icons';
-import { MonthlySample } from '../../../pages';
+import { MonthlySample } from "../../../pages";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     table: {
-        minWidth: 250,
         marginTop: theme.spacing(3),
-        '& thead th': {
-            fontWeight: '600',
+        "& thead th": {
+            fontWeight: "500",
         },
-        '& tbody td': {
-            fontWeight: '300'
+        "& tbody td": {
+            fontWeight: "300",
         },
-        '& tbody tr:hover': {
-            backgroundColor: '#fffbf2',
-            cursor: 'pointer'
+        "& tbody tr:hover": {
+            backgroundColor: "#fffbf2",
+            cursor: "pointer",
         },
-    }
-}))
+    },
+}));
 
 function MonthlyTable() {
-
     const classes = useStyles();
 
     const pages = [5, 15, 31];
@@ -44,15 +42,17 @@ function MonthlyTable() {
         setPage(newPage);
     };
 
-    const handleChangeRowsPerPage = event => {
+    const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value));
         setPage(0);
     };
 
     const recordsAfterPagingAndSorting = () => {
-        return MonthlySample.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+        return MonthlySample.slice(
+            page * rowsPerPage,
+            (page + 1) * rowsPerPage
+        );
     };
-
 
     return (
         <div className="row daily-main-div">
@@ -62,40 +62,56 @@ function MonthlyTable() {
                         <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="left"><b>Date</b></TableCell>
-                                    <TableCell align="center"><b>Expenses</b></TableCell>
-                                    <TableCell align="center"><b>Income</b></TableCell>
-                                    <TableCell align="center"><b>Profit</b></TableCell>
-                                    <TableCell align="center"><b>Loss</b></TableCell>
+                                    <TableCell align="left">
+                                        <b>Date</b>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <b>Expenses</b>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <b>Income</b>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <b>Profit</b>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <b>Loss</b>
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {
-                                    recordsAfterPagingAndSorting().map(val =>
-                                    (
-                                        <TableRow>
-                                            <TableCell>{val.date}</TableCell>
-                                            <TableCell align="center">{val.expenses}</TableCell>
-                                            <TableCell align="center">{val.income}</TableCell>
-                                            <TableCell align="center">{val.profit}</TableCell>
-                                            <TableCell align="center">{val.loss}</TableCell>
+                                {recordsAfterPagingAndSorting().map((val) => (
+                                    <TableRow>
+                                        <TableCell>{val.date}</TableCell>
+                                        <TableCell align="center">
+                                            {val.expenses}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {val.income}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {val.profit}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {val.loss}
+                                        </TableCell>
 
-                                            <TableCell>
-                                                <ContainedButton
-                                                    variant="contained"
-                                                    size="medium"
-                                                    color="secondary"
-                                                    startIcon={<AiIcons.AiFillDelete />}
-                                                    // onClick={() => {
-                                                    //     deleteRecord(val.id)
-                                                    // }}
-                                                    text="Delete"
-                                                />
-                                            </TableCell>
-                                        </TableRow>
-                                    )
-                                    )
-                                }
+                                        <TableCell>
+                                            <ContainedButton
+                                                variant="contained"
+                                                size="medium"
+                                                color="secondary"
+                                                startIcon={
+                                                    <AiIcons.AiFillDelete />
+                                                }
+                                                // onClick={() => {
+                                                //     deleteRecord(val.id)
+                                                // }}
+                                                text="Delete"
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
@@ -111,13 +127,9 @@ function MonthlyTable() {
                     />
                 </div>
             </div>
-            <div className='col-5'>
-                
-            </div>
+            <div className="col-5"></div>
         </div>
-
-    )
+    );
 }
 
-export default MonthlyTable
-
+export default MonthlyTable;

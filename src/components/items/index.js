@@ -1,7 +1,4 @@
-import { SidebarData } from './navbar/SidebarData';
-import Navbar from './navbar/Navbar';
+import { SidebarData } from "./navbar/SidebarData";
+import Navbar from "./navbar/Navbar";
 
-export {
-    SidebarData,
-    Navbar
-}
+export { SidebarData, Navbar };
