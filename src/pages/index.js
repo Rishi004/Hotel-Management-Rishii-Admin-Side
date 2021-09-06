@@ -5,7 +5,6 @@ import Home from "./home/Home";
 import MonthlyMain from "./finance/monthly/MonthlyMain";
 import YearlyMain from "./finance/yearly/YearlyMain";
 import Profile from "./profile/Profile";
-import AddForm from "./finance/daily/AddForm";
 import DailyTable from "./finance/daily/DailyTable";
 import { DailySample } from "./finance/daily/DailySample";
 import MonthlyTable from "./finance/monthly/MonthlyTable";
@@ -20,7 +19,6 @@ export {
     MonthlyMain,
     YearlyMain,
     Profile,
-    AddForm,
     DailyTable,
     DailySample,
     MonthlyTable,
