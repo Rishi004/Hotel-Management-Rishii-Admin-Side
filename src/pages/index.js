@@ -10,6 +10,7 @@ import { DailySample } from "./finance/daily/DailySample";
 import MonthlyTable from "./finance/monthly/MonthlyTable";
 import { MonthlySample } from "./finance/monthly/MonthlySample";
 import DeleteConfirm from "./finance/daily/DeleteConfirm";
+import AddForm from "./finance/daily/AddForm";
 
 export {
     Login,
@@ -24,4 +25,5 @@ export {
     MonthlyTable,
     MonthlySample,
     DeleteConfirm,
+    AddForm,
 };

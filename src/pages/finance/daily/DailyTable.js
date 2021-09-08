@@ -26,6 +26,7 @@ import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import { AddForm } from "../../../pages";
 import { useForm } from "../../../components/items/UseForm";
 
 const useStyles = makeStyles((theme) => ({
@@ -47,13 +48,16 @@ const useStyles = makeStyles((theme) => ({
 function DailyTable() {
     const classes = useStyles();
 
-    const [showDate, setShowDate] = useState(new Date());
+    // const [showDate, setShowDate] = useState(new Date());
     const [date, setDate] = useState(new Date());
 
-    const [openAdd, setOpenAdd] = useState(false);
-    const [isEdit, setisEdit] = useState(false);
+    const [newDepartment, setnewDepartment] = useState("");
+    const [newIncome, setnewIncome] = useState(0);
+    const [newExpenses, setnewExpenses] = useState(0);
 
-    // const [openDelete, setOpenDelete] = useState(false);
+    const [openAdd, setOpenAdd] = useState(false);
+
+    // const [isEdit, setisEdit] = useState(false);
 
     const handleClickOpenAdd = () => {
         setOpenAdd(true);
@@ -62,31 +66,16 @@ function DailyTable() {
         setOpenAdd(false);
     };
 
-    // const pages = [5, 15, 31];
-    // const [page, setPage] = useState(0);
-    // const [rowsPerPage, setRowsPerPage] = useState(pages[page]);
-
-    // const handleChangePage = (event, newPage) => {
-    //     setPage(newPage);
-    // };
-
-    // const handleChangeRowsPerPage = event => {
-    //     setRowsPerPage(parseInt(event.target.value));
-    //     setPage(0);
-    // };
-
-    // const recordsAfterPagingAndSorting = () => {
-    //     return DailySample.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
-    // };
-
     const [recordList, setRecordList] = useState([]);
 
     const initialValues = {
-        id: 0,
         department: "",
         income: "",
         expenses: "",
         date: new Date(),
+        // newDepartment: "",
+        // newIncome: "",
+        // newExpenses: "",
     };
 
     const validate = (fieldValues = values) => {
@@ -98,6 +87,11 @@ function DailyTable() {
                 ? ""
                 : "This field is required.";
         }
+        // if ("newDepartment" in fieldValues) {
+        //     temp.newDepartment = fieldValues.newDepartment
+        //         ? ""
+        //         : "This field is required.";
+        // }
         if ("income" in fieldValues) {
             temp.income = numbers.test(fieldValues.income)
                 ? ""
@@ -127,7 +121,6 @@ function DailyTable() {
 
     const addDailyRecord = (e) => {
         e.preventDefault();
-        console.log("value", values.department);
         if (validate()) {
             Axios.post("http://localhost:3001/api/adddaily", {
                 department: values.department,
@@ -159,14 +152,37 @@ function DailyTable() {
         );
     };
 
+    const updateRecord = (id) => {
+        Axios.put("http://localhost:3001/api/edit", {
+            department: newDepartment,
+            income: newIncome,
+            expenses: newExpenses,
+            id: id,
+        }).then((response) => {
+            setRecordList(
+                recordList.map((val) => {
+                    return val.id === id
+                        ? {
+                              id: val.id,
+                              department: newDepartment,
+                              income: newIncome,
+                              expenses: newExpenses,
+                          }
+                        : val;
+                })
+            );
+            console.log("Updated");
+        });
+    };
+
     useEffect(() => {
         showDailyRecords();
     }, []);
 
-    const handleClickEdit = () => {
-        setOpenAdd(true);
-        setisEdit(true);
-    };
+    // const handleClickEdit = () => {
+    //     setOpenAdd(true);
+    //     setisEdit(true);
+    // };
 
     let totalProfit = recordList.reduce(
         (totalProfit, totalProfit2) =>
@@ -228,11 +244,11 @@ function DailyTable() {
                                     <TableCell align="left">
                                         <b>Date</b>
                                     </TableCell>
-                                    <TableCell align="center">
-                                        <b>Expenses</b>
-                                    </TableCell>
-                                    <TableCell align="center">
+                                    <TableCell align="left">
                                         <b>Income</b>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <b>Expenses</b>
                                     </TableCell>
                                     <TableCell align="center">
                                         <b>Profit</b>
@@ -243,15 +259,53 @@ function DailyTable() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {recordList.map((val) => (
+                                {recordList.map((val, key) => (
                                     <TableRow>
-                                        <TableCell>{val.department}</TableCell>
-                                        <TableCell>{val.date}</TableCell>
-                                        <TableCell align="center">
-                                            {val.expenses}
+                                        <TableCell>
+                                            {val.department}
+                                            <br />
+                                            <TextField
+                                                autoComplete="off"
+                                                className="input-table"
+                                                id="standard-basic"
+                                                onChange={(event) => {
+                                                    setnewDepartment(
+                                                        event.target.value
+                                                    );
+                                                }}
+                                            />
                                         </TableCell>
-                                        <TableCell align="center">
+                                        <TableCell>
+                                            {val.date}
+                                            <br />
+                                        </TableCell>
+                                        <TableCell align="left">
                                             {val.income}
+                                            <br />
+                                            <TextField
+                                                autoComplete="off"
+                                                className="input-table"
+                                                id="standard-basic"
+                                                onChange={(event) => {
+                                                    setnewIncome(
+                                                        event.target.value
+                                                    );
+                                                }}
+                                            />
+                                        </TableCell>
+                                        <TableCell align="left">
+                                            {val.expenses}
+                                            <br />
+                                            <TextField
+                                                autoComplete="off"
+                                                className="input-table"
+                                                id="standard-basic"
+                                                onChange={(event) => {
+                                                    setnewExpenses(
+                                                        event.target.value
+                                                    );
+                                                }}
+                                            />
                                         </TableCell>
                                         <TableCell align="center">
                                             {val.profit}
@@ -263,19 +317,21 @@ function DailyTable() {
                                         <TableCell>
                                             <ContainedButton
                                                 variant="contained"
-                                                size="medium"
+                                                size="small"
                                                 color="primary"
                                                 startIcon={
                                                     <AiIcons.AiFillEdit />
                                                 }
-                                                onClick={handleClickEdit}
-                                                text="Edit"
+                                                onClick={() => {
+                                                    updateRecord(val.id);
+                                                }}
+                                                text="Update"
                                             />
                                         </TableCell>
                                         <TableCell>
                                             <ContainedButton
                                                 variant="contained"
-                                                size="medium"
+                                                size="small"
                                                 color="secondary"
                                                 startIcon={
                                                     <AiIcons.AiFillDelete />
@@ -291,16 +347,6 @@ function DailyTable() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-
-                    {/* <TablePagination
-                        component="div"
-                        page={page}
-                        rowsPerPageOptions={pages}
-                        count={DailySample.length}
-                        rowsPerPage={rowsPerPage}
-                        onChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    /> */}
                 </div>
 
                 {/* <Dialog open={openAdd}>
@@ -323,14 +369,11 @@ function DailyTable() {
                         />
                     </DialogActions>
                 </Dialog> */}
+
                 <Dialog open={openAdd}>
                     <DialogContent>
                         <center>
-                            <h2>
-                                {isEdit
-                                    ? "Edit Selected Record"
-                                    : "Add New Record"}
-                            </h2>
+                            <h2>Add New Record</h2>
                             <form
                                 className="add-from-div"
                                 onSubmit={addDailyRecord}
@@ -365,6 +408,7 @@ function DailyTable() {
                                             KeyboardButtonProps={{
                                                 "aria-label": "change date",
                                             }}
+                                            required
                                         />
                                     </MuiPickersUtilsProvider>
                                     <TextField
@@ -399,11 +443,7 @@ function DailyTable() {
                                         variant="contained"
                                         size="large"
                                         color="primary"
-                                        text={
-                                            isEdit
-                                                ? "Update Record"
-                                                : "Add Record"
-                                        }
+                                        text="Add Record"
                                     />
                                     <ContainedButton
                                         className="add-record-btn"
